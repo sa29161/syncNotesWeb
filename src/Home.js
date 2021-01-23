@@ -19,22 +19,22 @@ logout(){
     fire.auth().signOut();
 }
 
-createNote(){
+    createNote() {
 
-const des = document.querySelector('#description').value;
-  const id = fire.database().ref("Users").child(fire.auth().currentUser.uid).push().key;
-  const note = new Note(des,id);
+        const des = document.querySelector('#description').value;
+        const id = fire.database().ref("Users").child(fire.auth().currentUser.uid).push().key;
+        const note = new Note(des, id);
 
-  const ref = fire.database().ref("Users")
-  .child(fire.auth().currentUser.uid)
-  .child(id);
+        const ref = fire.database().ref("Users")
+            .child(fire.auth().currentUser.uid)
+            .child(id);
 
 
-  ref.set(note);
+        ref.set(note);
 
-  this.setState({
-    show: false
-})
+        this.setState({
+            show: false
+        })
 
 }
 
@@ -51,13 +51,19 @@ render(){
     return(
         <div>
         <h1>You are logged in</h1>
-        <button onClick={()=>this.open()}>Add Note</button>
+        <button style={{ position: 'relative', left: '50%' }}onClick={()=>this.open()}>Add Note</button>
+        &nbsp;
         <button onClick={this.logout}>Logout</button>
         {
         this.state.show ?
-        <div>     
-           <input type="text" id="description" size="50"/>
-           <button onClick={()=> {this.open(); this.createNote();}}>Save</button>
+        <div style={{ position: 'relative', left: '40%' }}>
+            <br/>     
+            <textarea id = "description"
+                  rows = "10"
+                  cols = "50"
+                  placeholder = "Your text here"></textarea>
+           <br/><br/>
+           <button style={{ position: 'relative', left: '11%' }} onClick={()=> {this.open(); this.createNote();}}>Save</button>
         </div>:null
         }
 
